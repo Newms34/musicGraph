@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tone Graphs!</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body ng-app='soundApp' ng-controller='soundController'>
+    <canvas id='toneGraf' ng-click='toneAdd($event)' height='600' width='800'>Your browser doesn't support canvas!</canvas>
+    <hr/>
+    <div id='controls'>
+        Volume: &#128264;
+        <input type='range' min='0' max='30' ng-model='volCont' ng-change='volCh(volCont)' />&#128266;
+        <br/> Tempo: &#128034;
+        <input type='range' min='1' max='30' ng-model='timCont' ng-change='timCh(timCont)' />&#128007;
+        <hr/>
+        <img src='{{soundType}}.jpg'>
+        Sine:<input type='radio' ng-model='soundType' value = 'sine' checked/><br/>
+        Triangle:<input type='radio' ng-model='soundType' value = 'triangle'/><br/>
+        Sawtooth:<input type='radio' ng-model='soundType' value = 'sawtooth'/><br/>
+        Square:<input type='radio' ng-model='soundType' value = 'square'/><br/>
+        <hr/>
+        Autoplay: <input type='checkbox' ng-model='autoPlay'/>
+        <hr/>
+        <button ng-click='oscOn(yArr[0])'>Play again!</button> <button ng-click='reset()'>Reset!</button>
+    </div>
+    <div id='instr'>
+    <h3>Wat do?!</h3>
+        <ol>
+            <li>Adjust the volume as needed</li>
+            <li>Adjust the tempo as needed</li>
+            <li>Pick a waveform! We don't advise square or sawtooth.</li>
+            <li>Click the graph to adjust it! If you have autoplay enabled, your new song will play whenever you change the graph.</li>
+            <li>Press "Play again" to replay your song.</li>
+        </ol>
+    </div>
+    <div id='marker'></div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="./js/controller.js"></script>
+</body>
+
+</html>
