@@ -8,16 +8,16 @@
 - [Author](#author)
 - [License](#license)
 
-##About
+## About
 
 I'm using the HTML canvas element to create a line graph with draggable lines. I then use the x and y position of each data point on that graph to generate a melody.
 
-##Installing and Using
+## Installing and Using
 
->This app is a simple front-end app. Hey, it's not even really an app. But if you wanna use it:
+This app is a simple front-end app. Hey, it's not even really an app. But if you wanna use it:
 ###Installation
 1.) Download/clone it to your local machine:
->>```git clone https://github.com/Newms34/musicGraph.git```
+```git clone https://github.com/Newms34/musicGraph.git```
 
 2.) Open index.html. Seriously, that's it as far as installation. And here you were expecting some fancy install procedure, right?
 
