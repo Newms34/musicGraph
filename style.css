@@ -19,13 +19,15 @@ body {
 }
 #marker{
 	height:600px;
-	width:1px;
+	width:5px;
 	background-color: #bbf;
 	left:100px;
 	top:100px;
 	position: absolute;
-	transition-duration:.2s;
-	box-shadow:0 0 3px #bbf;
+	transition-duration:.05s;
+	box-shadow:0 0 1px #bbf;
+    pointer-events:none;
+    filter:blur(3px);
 }
 
 #instr {

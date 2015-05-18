@@ -11,6 +11,7 @@ app.controller("soundController", function($scope, $filter) {
     $scope.dur = 200;
     $scope.autoPlay = false;
     $scope.soundType = 'sine';
+    $scope.playing = false; //are we currently playing? if so, disable tone adding, mousefollow
     //preparing canvas element
     $scope.canvEle = document.querySelector('#toneGraf');
     $scope.canvDraw = $scope.canvEle.getContext('2d');
@@ -38,33 +39,36 @@ app.controller("soundController", function($scope, $filter) {
     }
 
     $scope.toneAdd = function(e) {
-        var x = Math.floor(((e.x || e.clientX) + $(document).scrollLeft() - 100) / 10) * 10;
-        var y = Math.floor(((e.y || e.clientY) + $(document).scrollTop() - 100) / 10) * 10;
-        var posNum;
-        console.log('x:', x, 'y:', y)
-            //now, search to see if that xPos is already taken:
-        var foundPos = $scope.xArr.indexOf(x);
-        if (foundPos != -1) {
-            //adjust existing freq
-            $scope.yArr[foundPos] = y;
-        } else {
-            //make new freq
-            posNum = 0;
-            while ($scope.xArr[posNum + 1] < x) {
-                posNum++;
+        if (!$scope.playing) {
+            var x = Math.floor(((e.x || e.clientX) + $(document).scrollLeft() - 100) / 10) * 10;
+            var y = Math.floor(((e.y || e.clientY) + $(document).scrollTop() - 100) / 10) * 10;
+            var posNum;
+            console.log('x:', x, 'y:', y)
+                //now, search to see if that xPos is already taken:
+            var foundPos = $scope.xArr.indexOf(x);
+            if (foundPos != -1) {
+                //adjust existing freq
+                $scope.yArr[foundPos] = y;
+            } else {
+                //make new freq
+                posNum = 0;
+                while ($scope.xArr[posNum + 1] < x) {
+                    posNum++;
+                }
+                $scope.xArr.splice(posNum + 1, 0, x);
+                $scope.yArr.splice(posNum + 1, 0, y);
+                console.log('Between:' + $scope.xArr[posNum] + ' and ' + $scope.xArr[posNum + 1] + '. Pos number: ' + posNum)
             }
-            $scope.xArr.splice(posNum + 1, 0, x);
-            $scope.yArr.splice(posNum + 1, 0, y);
-            console.log('Between:' + $scope.xArr[posNum] + ' and ' + $scope.xArr[posNum + 1] + '. Pos number: ' + posNum)
-        }
-        $scope.drawMe();
-        $scope.currToneNum = 0;
-        if ($scope.autoPlay) {
-            $scope.oscOn($scope.yArr[$scope.currToneNum])
+            $scope.drawMe();
+            $scope.currToneNum = 0;
+            if ($scope.autoPlay) {
+                $scope.oscOn($scope.yArr[$scope.currToneNum])
+            }
         }
     }
 
     $scope.oscOn = function(freqIn) {
+        $scope.playing = true;
         //this function plays a tone. it then stops the tone after 'dur' seconds and continues on to the next tone (if there is one)
         var freq = parseInt((-13 * freqIn / 4) + 1500);
         console.log(freqIn, freq)
@@ -91,8 +95,12 @@ app.controller("soundController", function($scope, $filter) {
             } else {
                 //reset!
                 $scope.currToneNum = 0;
+                $scope.playing = false;
             }
-            $('#marker').css('left', $scope.xArr[$scope.currToneNum] + 100 + 'px')
+            $('#marker').css({
+                'left': $scope.xArr[$scope.currToneNum] + 100 + 'px',
+                'background-color': 'rgba(200,200,250,.6)'
+            });
         }, $scope.dur)
     };
 
@@ -116,11 +124,27 @@ app.controller("soundController", function($scope, $filter) {
         window.prompt('Press ctrl-c to copy this to your clipboard!', strCode);
     }
     $scope.load = function() {
-        var strCode = window.prompt('Enter the code you were given!','');
-        var loadStrArr = decodeURIComponent(escape(window.atob( strCode ))).split('/');
+        var strCode = window.prompt('Enter the code you were given!', '');
+        var loadStrArr = decodeURIComponent(escape(window.atob(strCode))).split('/');
         console.log(loadStrArr);
         $scope.xArr = loadStrArr[0].split(',');
         $scope.yArr = loadStrArr[1].split(',');
         $scope.drawMe();
     }
+    $('#toneGraf').on('mousemove', function(e) {
+
+        var x =Math.floor(((e.screenX || e.pageX) + $(document).scrollLeft() + 2) / 10) * 10
+        if (!$scope.playing && $scope.xArr.indexOf(x-100)!=-1) {
+            $('#marker').css({
+                'left': x + 'px',
+                'background-color': 'rgba(200,200,250,.6)'
+            });
+        }else{
+            $('#marker').css({
+                'left': '0px',
+                'background-color': 'rgba(200,200,250,0)'
+            });
+        }
+
+    })
 });
