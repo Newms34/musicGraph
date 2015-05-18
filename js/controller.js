@@ -110,4 +110,17 @@ app.controller("soundController", function($scope, $filter) {
         console.log($scope.xArr)
         $scope.drawMe();
     }
+    $scope.save = function() {
+        var saveStr = $scope.xArr.toString() + '/' + $scope.yArr.toString();
+        var strCode = window.btoa(unescape(encodeURIComponent(saveStr)));
+        window.prompt('Press ctrl-c to copy this to your clipboard!', strCode);
+    }
+    $scope.load = function() {
+        var strCode = window.prompt('Enter the code you were given!','');
+        var loadStrArr = decodeURIComponent(escape(window.atob( strCode ))).split('/');
+        console.log(loadStrArr);
+        $scope.xArr = loadStrArr[0].split(',');
+        $scope.yArr = loadStrArr[1].split(',');
+        $scope.drawMe();
+    }
 });

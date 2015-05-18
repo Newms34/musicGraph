@@ -15,7 +15,7 @@
         <br/> Tempo: &#128034;
         <input type='range' min='1' max='30' ng-model='timCont' ng-change='timCh(timCont)' />&#128007;
         <hr/>
-        <img src='{{soundType}}.jpg'>
+        <img src='./img/{{soundType}}.jpg'>
         Sine:<input type='radio' ng-model='soundType' value = 'sine' checked/><br/>
         Triangle:<input type='radio' ng-model='soundType' value = 'triangle'/><br/>
         Sawtooth:<input type='radio' ng-model='soundType' value = 'sawtooth'/><br/>
@@ -24,6 +24,8 @@
         Autoplay: <input type='checkbox' ng-model='autoPlay'/>
         <hr/>
         <button ng-click='oscOn(yArr[0])'>Play again!</button> <button ng-click='reset()'>Reset!</button>
+        <hr/>
+        <button ng-click='save()' title='save'>&#10145; &#128190;</button> <button ng-click='load()' title='load'>&#128190; &#10145;</button>
     </div>
     <div id='instr'>
     <h3>Wat do?!</h3>

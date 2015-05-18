@@ -12,9 +12,9 @@ body {
     top: 100px;
     position: absolute;
     box-shadow: 3px 3px 5px #000;
-    background: -webkit-linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('canvbg.jpg');
-    background: -moz-linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('canvbg.jpg');
-    background: linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('canvbg.jpg');
+    background: -webkit-linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('./img/canvbg.jpg');
+    background: -moz-linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('./img/canvbg.jpg');
+    background: linear-gradient(rgba(100, 0, 100, 0.5), rgba(0, 0, 0, 0.5)), url('./img/canvbg.jpg');
     background-size: contain;
 }
 #marker{
@@ -52,7 +52,7 @@ body {
     top: 300px;
     margin-right: 50px;
     width: 300px;
-    height: 220px;
+    height: 270px;
     padding: 10px;
     background-color: #333;
 }
